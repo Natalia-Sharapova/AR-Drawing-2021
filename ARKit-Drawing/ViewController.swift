@@ -2,7 +2,7 @@
 import ARKit
 
 class ViewController: UIViewController {
-
+    
     //MARK: - Outlets
     @IBOutlet var sceneView: ARSCNView!
     
@@ -13,12 +13,8 @@ class ViewController: UIViewController {
     enum ObjectPlacementMode {
         case freeform, plane, image
     }
-    
+    //Array of nodes for saving and showing by the button
     var arrayOfNodes = [SCNNode]()
-    
-    /// Minimum distance between objects placed when moving
-    let minimumDistance: Float = 0.009
-    
     
     /// Last node placed by user
     var lastNode: SCNNode?
@@ -46,7 +42,7 @@ class ViewController: UIViewController {
     /// Adds a node at users touch location represented by point
     /// - Parameters:
     ///   - node: the node to be added
-    ///   - point: point at which user has touched yhe screen
+    ///   - point: point at which user has touched the screen
     func addNode(_ node: SCNNode, at point: CGPoint) {
         guard let hitResult = sceneView.hitTest(point, types: .existingPlaneUsingExtent).first else { return }
         guard let anchor = hitResult.anchor as? ARPlaneAnchor, anchor.alignment == .horizontal else { return }
@@ -83,9 +79,7 @@ class ViewController: UIViewController {
     }
     
     func addNodeToSceneRoot(_ node: SCNNode) {
-        
         addNode(node, to: sceneView.scene.rootNode)
-        
     }
     
     func addNode(_ node: SCNNode, to parentNode: SCNNode) {
@@ -97,33 +91,26 @@ class ViewController: UIViewController {
             let newPosition = node.position
             
             let (min, max) = lastNode.boundingBox
-         
+            
+            //Calculate the size of the node by x, y, z axes
             let minimumDistanceX = powf((max.x - min.x), 2.0)
             let minimumDistanceY = powf((max.y - min.y), 2.0)
             let minimumDistanceZ = powf((max.z - min.z), 2.0)
             
+            //Calculate minimum distance between min and max points of boundingBox
             let minimumDistanceXYZ = sqrt(Float(minimumDistanceX + minimumDistanceY + minimumDistanceZ))
-            print(minimumDistanceXYZ)
             
-            let percent = (minimumDistanceXYZ / 100) * 60
-    
-           let x = lastPosition.x - newPosition.x
-           let y = lastPosition.y - newPosition.y
-           let z = lastPosition.z - newPosition.z
-           
+            let percentOfMinimumDistance = (minimumDistanceXYZ / 100) * 60
+            
+            //Finding distance between lastNode and node
+            let x = lastPosition.x - newPosition.x
+            let y = lastPosition.y - newPosition.y
+            let z = lastPosition.z - newPosition.z
+            
             let distance = sqrt(x * x + y * y + z * z)
-            print(distance)
             
-           
-            //let minimumDistanceXYZ = minimumDistanceX * minimumDistanceX + minimumDistanceY * minimumDistanceY + minimumDistanceZ * minimumDistanceZ
-            //print("minimum is \(minimumDistanceXYZ)")
-            
-        //  let minimumDistanceXYZSquare = minimumDistanceXYZ
-           // print("minimum square is \(minimumDistanceXYZSquare)")
-            
-           // let minimumDistanceSquare = minimumDistance * minimumDistance
-            
-            guard percent < distance else { return }
+            //Check that the distance between lastNode and node equal the size of the node
+            guard percentOfMinimumDistance < distance else { return }
             
         }
         
@@ -134,19 +121,20 @@ class ViewController: UIViewController {
         lastNode = clonedNode
         
         objectsPlaced.append(clonedNode)
-     
         
         //Add the cloned node to the scene
-       parentNode.addChildNode(clonedNode)
+        parentNode.addChildNode(clonedNode)
         
     }
     
     func addNodeToImage(_ node: SCNNode, at point: CGPoint){
         
-     guard let result = sceneView.hitTest(point, options: [:]).first else { return }
+        guard let result = sceneView.hitTest(point, options: [:]).first else { return }
         guard result.node.name == "image" else { return }
+        
         node.transform = result.node.worldTransform
         node.eulerAngles.x = 0
+        
         addNodeToSceneRoot(node)
         
     }
@@ -187,7 +175,7 @@ class ViewController: UIViewController {
         
         switch objectMode {
         case .freeform:
-           addNodeInFront(selectedNode)
+            addNodeInFront(selectedNode)
         case .plane:
             addNode(selectedNode, at: point)
         case .image:
@@ -199,7 +187,7 @@ class ViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         lastNode = nil
         process(touches)
-       
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -224,7 +212,7 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
     }
-
+    
     //MARK: - Actions
     @IBAction func changeObjectMode(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -243,14 +231,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
+        
+        //Save array of placed nodes and hide it
         arrayOfNodes = objectsPlaced
+        
         for node in arrayOfNodes {
             node.isHidden = true
         }
     }
     
-    
     @IBAction func placeButtonPressed(_ sender: UIButton) {
+        
+        //Show array of placed nodes
         for node in arrayOfNodes {
             node.isHidden = false
         }
@@ -286,74 +278,75 @@ extension ViewController: OptionsViewControllerDelegate {
         dismiss(animated: true)
     }
 }
-    extension ViewController: ARSCNViewDelegate {
+extension ViewController: ARSCNViewDelegate {
+    
+    func createFloor(with size: CGSize, opacity: CGFloat = 0.25) -> SCNNode {
         
-        func createFloor(with size: CGSize, opacity: CGFloat = 0.25) -> SCNNode {
-            
-            let plane = SCNPlane(width: size.width, height: size.height)
-            plane.firstMaterial?.diffuse.contents = UIColor.green
-            
-            let planeNode = SCNNode(geometry: plane)
-            planeNode.opacity = opacity
-            planeNode.eulerAngles.x -= .pi / 2
-            
-            return planeNode
-        }
+        let plane = SCNPlane(width: size.width, height: size.height)
+        plane.firstMaterial?.diffuse.contents = UIColor.green
         
-        func nodeAdded(_ node: SCNNode, for anchor: ARImageAnchor) {
-            //Put a plane above the image
-            let size = anchor.referenceImage.physicalSize
-            let coverNode = createFloor(with: size, opacity: 0.001)
-            
-            coverNode.name = "image"
-            
-            node.addChildNode(coverNode)
-            
-        }
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.opacity = opacity
+        planeNode.eulerAngles.x -= .pi / 2
         
-        func nodeAdded(_ node: SCNNode, for anchor: ARPlaneAnchor) {
-            let extent = anchor.extent
-            let size = CGSize(width: CGFloat(extent.x), height: CGFloat(extent.z))
-            let planeNode = createFloor(with: size)
-            
-            planeNode.isHidden = arePlanesHidden
-            planeNodes.append(planeNode)
-            node.addChildNode(planeNode)
-        }
+        return planeNode
+    }
+    
+    func nodeAdded(_ node: SCNNode, for anchor: ARImageAnchor) {
         
-        func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-            switch anchor {
-            case let imageAnchor as ARImageAnchor:
-                nodeAdded(node, for: imageAnchor)
-            case let planeAnchor as ARPlaneAnchor:
-                nodeAdded(node, for: planeAnchor)
-            default:
-                break
-            }
-        }
+        //Put a plane above the image
+        let size = anchor.referenceImage.physicalSize
+        let coverNode = createFloor(with: size, opacity: 0.001)
         
-        func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-            switch anchor {
-            case is ARImageAnchor:
-                break
-            case let planeAnchor as ARPlaneAnchor:
-                updateFloor(for: node, anchor: planeAnchor)
-            default:
-                print("Unknown anchor")
-            }
-        }
+        coverNode.name = "image"
         
-        func updateFloor(for node: SCNNode, anchor: ARPlaneAnchor) {
-            guard let planeNode = node.childNodes.first, let plane = planeNode.geometry as? SCNPlane else { return }
-           
-            let extent = anchor.extent
-            
-            plane.width = CGFloat(extent.x)
-            plane.height = CGFloat(extent.z)
-            
-            //Position the plane in the center
-            planeNode.simdPosition = anchor.center
-            
+        node.addChildNode(coverNode)
+        
+    }
+    
+    func nodeAdded(_ node: SCNNode, for anchor: ARPlaneAnchor) {
+        let extent = anchor.extent
+        let size = CGSize(width: CGFloat(extent.x), height: CGFloat(extent.z))
+        let planeNode = createFloor(with: size)
+        
+        planeNode.isHidden = arePlanesHidden
+        planeNodes.append(planeNode)
+        node.addChildNode(planeNode)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        switch anchor {
+        case let imageAnchor as ARImageAnchor:
+            nodeAdded(node, for: imageAnchor)
+        case let planeAnchor as ARPlaneAnchor:
+            nodeAdded(node, for: planeAnchor)
+        default:
+            break
         }
     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        switch anchor {
+        case is ARImageAnchor:
+            break
+        case let planeAnchor as ARPlaneAnchor:
+            updateFloor(for: node, anchor: planeAnchor)
+        default:
+            print("Unknown anchor")
+        }
+    }
+    
+    func updateFloor(for node: SCNNode, anchor: ARPlaneAnchor) {
+        guard let planeNode = node.childNodes.first, let plane = planeNode.geometry as? SCNPlane else { return }
+        
+        let extent = anchor.extent
+        
+        plane.width = CGFloat(extent.x)
+        plane.height = CGFloat(extent.z)
+        
+        //Position the plane in the center
+        planeNode.simdPosition = anchor.center
+        
+    }
+}
 
