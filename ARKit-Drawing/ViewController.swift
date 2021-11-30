@@ -55,8 +55,6 @@ class ViewController: UIViewController {
         addNodeToSceneRoot(node)
     }
     
-    
-    
     /// Adds an object in 20 cm in front of camera
     /// - Parameter node: node of the object to add
     func addNodeInFront(_ node: SCNNode) {
@@ -72,7 +70,6 @@ class ViewController: UIViewController {
         
         //Translate by 20 cm
         translation.columns.3.z = -0.2
-        
         translation.columns.0.x = 0
         translation.columns.1.x = -1
         translation.columns.0.y = 1
@@ -99,14 +96,34 @@ class ViewController: UIViewController {
             let lastPosition = lastNode.position
             let newPosition = node.position
             
-            let x = lastPosition.x - newPosition.x
-            let y = lastPosition.y - newPosition.y
-            let z = lastPosition.z - newPosition.z
+            let (min, max) = lastNode.boundingBox
+         
+            let minimumDistanceX = powf((max.x - min.x), 2.0)
+            let minimumDistanceY = powf((max.y - min.y), 2.0)
+            let minimumDistanceZ = powf((max.z - min.z), 2.0)
             
-            let distance = x * x + y * y + z * z
-            let minimumDistanceSquare = minimumDistance * minimumDistance
+            let minimumDistanceXYZ = sqrt(Float(minimumDistanceX + minimumDistanceY + minimumDistanceZ))
+            print(minimumDistanceXYZ)
             
-            guard minimumDistanceSquare < distance else { return }
+            let percent = (minimumDistanceXYZ / 100) * 60
+    
+           let x = lastPosition.x - newPosition.x
+           let y = lastPosition.y - newPosition.y
+           let z = lastPosition.z - newPosition.z
+           
+            let distance = sqrt(x * x + y * y + z * z)
+            print(distance)
+            
+           
+            //let minimumDistanceXYZ = minimumDistanceX * minimumDistanceX + minimumDistanceY * minimumDistanceY + minimumDistanceZ * minimumDistanceZ
+            //print("minimum is \(minimumDistanceXYZ)")
+            
+        //  let minimumDistanceXYZSquare = minimumDistanceXYZ
+           // print("minimum square is \(minimumDistanceXYZSquare)")
+            
+           // let minimumDistanceSquare = minimumDistance * minimumDistance
+            
+            guard percent < distance else { return }
             
         }
         
@@ -141,11 +158,26 @@ class ViewController: UIViewController {
         }
     }
     
-    func reloadConfiguration() {
+    func reloadConfiguration(reset: Bool = false) {
         
+        //Clear objects placed
+        objectsPlaced.forEach { $0.removeFromParentNode() }
+        objectsPlaced.removeAll()
+        
+        //Clear planes placed
+        planeNodes.forEach { $0.removeFromParentNode() }
+        planeNodes.removeAll()
+        
+        //Hide all future planes
+        arePlanesHidden = false
+        
+        //Remove existing anchors if reset is true
+        let options: ARSession.RunOptions = reset ? .removeExistingAnchors : []
+        
+        //Reload configuration
         configuration.planeDetection = .horizontal
         configuration.detectionImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil)
-        sceneView.session.run(configuration)
+        sceneView.session.run(configuration, options: options)
     }
     
     func process(_ touches: Set<UITouch>) {
@@ -235,17 +267,23 @@ extension ViewController: OptionsViewControllerDelegate {
     }
     
     func togglePlaneVisualization() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
         guard objectMode == .plane else { return }
         arePlanesHidden.toggle()
     }
     
     func undoLastObject() {
-        
+        if let lastObject = objectsPlaced.last {
+            lastObject.removeFromParentNode()
+            objectsPlaced.removeLast()
+        } else {
+            dismiss(animated: true)
+        }
     }
     
     func resetScene() {
-        dismiss(animated: true, completion: nil)
+        reloadConfiguration(reset: true)
+        dismiss(animated: true)
     }
 }
     extension ViewController: ARSCNViewDelegate {
