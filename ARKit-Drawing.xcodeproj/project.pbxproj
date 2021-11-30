@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5519DC5720238B6000B1008D /* OptionSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519DC5620238B6000B1008D /* OptionSelectorViewController.swift */; };
+		9B20A64D27569C4A00B41498 /* Screenshot04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A64927569C4A00B41498 /* Screenshot04.jpg */; };
+		9B20A64E27569C4A00B41498 /* Screenshot02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A64A27569C4A00B41498 /* Screenshot02.jpg */; };
+		9B20A64F27569C4A00B41498 /* Screenshot01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A64B27569C4A00B41498 /* Screenshot01.jpg */; };
+		9B20A65027569C4A00B41498 /* Screenshot 03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A64C27569C4A00B41498 /* Screenshot 03.jpg */; };
 		BE618F32203E31B8005EC6F1 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE618F31203E31B8005EC6F1 /* UIViewController+Extensions.swift */; };
 		BE915EAB20105C1D00A251FD /* OptionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE915EAA20105C1D00A251FD /* OptionsContainerViewController.swift */; };
 		BEDB2EDA200EABAD001C6BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB2ED9200EABAD001C6BBC /* AppDelegate.swift */; };
@@ -22,6 +26,10 @@
 
 /* Begin PBXFileReference section */
 		5519DC5620238B6000B1008D /* OptionSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelectorViewController.swift; sourceTree = "<group>"; };
+		9B20A64927569C4A00B41498 /* Screenshot04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot04.jpg; sourceTree = "<group>"; };
+		9B20A64A27569C4A00B41498 /* Screenshot02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot02.jpg; sourceTree = "<group>"; };
+		9B20A64B27569C4A00B41498 /* Screenshot01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot01.jpg; sourceTree = "<group>"; };
+		9B20A64C27569C4A00B41498 /* Screenshot 03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Screenshot 03.jpg"; sourceTree = "<group>"; };
 		BE618F31203E31B8005EC6F1 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		BE915EAA20105C1D00A251FD /* OptionsContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsContainerViewController.swift; sourceTree = "<group>"; };
 		BEDB2ED6200EABAD001C6BBC /* ARKit-Drawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ARKit-Drawing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +55,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B20A64827569C4A00B41498 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				9B20A64927569C4A00B41498 /* Screenshot04.jpg */,
+				9B20A64A27569C4A00B41498 /* Screenshot02.jpg */,
+				9B20A64B27569C4A00B41498 /* Screenshot01.jpg */,
+				9B20A64C27569C4A00B41498 /* Screenshot 03.jpg */,
+			);
+			path = Screenshots;
+			sourceTree = SOURCE_ROOT;
+		};
 		BEDB2ECD200EABAD001C6BBC = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +92,7 @@
 				BEDB2EF1200ECF14001C6BBC /* Options */,
 				BEDB2EDB200EABAD001C6BBC /* models.scnassets */,
 				BEDB2EE2200EABAD001C6BBC /* Assets.xcassets */,
+				9B20A64827569C4A00B41498 /* Screenshots */,
 				BEDB2EE4200EABAD001C6BBC /* LaunchScreen.storyboard */,
 				BEDB2EE7200EABAD001C6BBC /* Info.plist */,
 			);
@@ -151,9 +171,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEDB2EDC200EABAD001C6BBC /* models.scnassets in Resources */,
+				9B20A64D27569C4A00B41498 /* Screenshot04.jpg in Resources */,
 				BEDB2EEE200ECB94001C6BBC /* Options.storyboard in Resources */,
 				BEDB2EE6200EABAD001C6BBC /* LaunchScreen.storyboard in Resources */,
+				9B20A65027569C4A00B41498 /* Screenshot 03.jpg in Resources */,
+				9B20A64E27569C4A00B41498 /* Screenshot02.jpg in Resources */,
 				BEDB2EE3200EABAD001C6BBC /* Assets.xcassets in Resources */,
+				9B20A64F27569C4A00B41498 /* Screenshot01.jpg in Resources */,
 				BEDB2EE1200EABAD001C6BBC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
