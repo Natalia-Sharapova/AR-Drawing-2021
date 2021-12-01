@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5519DC5720238B6000B1008D /* OptionSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519DC5620238B6000B1008D /* OptionSelectorViewController.swift */; };
-		9B20A65D2756A47800B41498 /* Screenshot04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A6592756A47800B41498 /* Screenshot04.jpg */; };
-		9B20A65E2756A47800B41498 /* Screenshot02.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A65A2756A47800B41498 /* Screenshot02.png */; };
-		9B20A65F2756A47800B41498 /* Screenshot03.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A65B2756A47800B41498 /* Screenshot03.png */; };
-		9B20A6602756A47800B41498 /* Screenshot01.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B20A65C2756A47800B41498 /* Screenshot01.png */; };
+		9B2C79972757D58E0041E481 /* Screenshot02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B2C79942757D58E0041E481 /* Screenshot02.jpg */; };
+		9B2C79982757D58E0041E481 /* Screenshot03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B2C79952757D58E0041E481 /* Screenshot03.jpg */; };
+		9B2C79992757D58E0041E481 /* Screenshot01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B2C79962757D58E0041E481 /* Screenshot01.jpg */; };
 		BE618F32203E31B8005EC6F1 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE618F31203E31B8005EC6F1 /* UIViewController+Extensions.swift */; };
 		BE915EAB20105C1D00A251FD /* OptionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE915EAA20105C1D00A251FD /* OptionsContainerViewController.swift */; };
 		BEDB2EDA200EABAD001C6BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB2ED9200EABAD001C6BBC /* AppDelegate.swift */; };
@@ -26,10 +25,9 @@
 
 /* Begin PBXFileReference section */
 		5519DC5620238B6000B1008D /* OptionSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelectorViewController.swift; sourceTree = "<group>"; };
-		9B20A6592756A47800B41498 /* Screenshot04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot04.jpg; sourceTree = "<group>"; };
-		9B20A65A2756A47800B41498 /* Screenshot02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot02.png; sourceTree = "<group>"; };
-		9B20A65B2756A47800B41498 /* Screenshot03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot03.png; sourceTree = "<group>"; };
-		9B20A65C2756A47800B41498 /* Screenshot01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot01.png; sourceTree = "<group>"; };
+		9B2C79942757D58E0041E481 /* Screenshot02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot02.jpg; sourceTree = "<group>"; };
+		9B2C79952757D58E0041E481 /* Screenshot03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot03.jpg; sourceTree = "<group>"; };
+		9B2C79962757D58E0041E481 /* Screenshot01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Screenshot01.jpg; sourceTree = "<group>"; };
 		BE618F31203E31B8005EC6F1 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		BE915EAA20105C1D00A251FD /* OptionsContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsContainerViewController.swift; sourceTree = "<group>"; };
 		BEDB2ED6200EABAD001C6BBC /* ARKit-Drawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ARKit-Drawing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,13 +53,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9B20A6582756A47800B41498 /* Screenshots */ = {
+		9B2C79932757D58E0041E481 /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
-				9B20A6592756A47800B41498 /* Screenshot04.jpg */,
-				9B20A65A2756A47800B41498 /* Screenshot02.png */,
-				9B20A65B2756A47800B41498 /* Screenshot03.png */,
-				9B20A65C2756A47800B41498 /* Screenshot01.png */,
+				9B2C79942757D58E0041E481 /* Screenshot02.jpg */,
+				9B2C79952757D58E0041E481 /* Screenshot03.jpg */,
+				9B2C79962757D58E0041E481 /* Screenshot01.jpg */,
 			);
 			path = Screenshots;
 			sourceTree = SOURCE_ROOT;
@@ -93,7 +90,7 @@
 				BEDB2EDF200EABAD001C6BBC /* Main.storyboard */,
 				BEDB2EDB200EABAD001C6BBC /* models.scnassets */,
 				BEDB2EF1200ECF14001C6BBC /* Options */,
-				9B20A6582756A47800B41498 /* Screenshots */,
+				9B2C79932757D58E0041E481 /* Screenshots */,
 				BEDB2EDD200EABAD001C6BBC /* ViewController.swift */,
 			);
 			path = "ARKit-Drawing";
@@ -171,14 +168,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEDB2EDC200EABAD001C6BBC /* models.scnassets in Resources */,
-				9B20A65D2756A47800B41498 /* Screenshot04.jpg in Resources */,
 				BEDB2EEE200ECB94001C6BBC /* Options.storyboard in Resources */,
+				9B2C79992757D58E0041E481 /* Screenshot01.jpg in Resources */,
 				BEDB2EE6200EABAD001C6BBC /* LaunchScreen.storyboard in Resources */,
-				9B20A65F2756A47800B41498 /* Screenshot03.png in Resources */,
-				9B20A6602756A47800B41498 /* Screenshot01.png in Resources */,
-				9B20A65E2756A47800B41498 /* Screenshot02.png in Resources */,
 				BEDB2EE3200EABAD001C6BBC /* Assets.xcassets in Resources */,
 				BEDB2EE1200EABAD001C6BBC /* Main.storyboard in Resources */,
+				9B2C79982757D58E0041E481 /* Screenshot03.jpg in Resources */,
+				9B2C79972757D58E0041E481 /* Screenshot02.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
